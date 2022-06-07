@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CommonModule } from '../common';
-import { AuthController } from './auth.controller';
+import { AuthController } from './auth.dto';
 
 describe('AuthController', () => {
   let controller: AuthController;

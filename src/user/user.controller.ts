@@ -2,7 +2,7 @@ import { Body, Controller, Get, Injectable, Post, Query } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from '../common';
 import { User } from '../models/user.model';
-import { CreateUserDto, FilterUserDto } from './user.interface';
+import { CreateUserDto, FilterUserDto } from './user.dto';
 
 @Injectable()
 @ApiTags('User')
