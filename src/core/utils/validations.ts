@@ -31,6 +31,11 @@ export function Match(property: string, validationOptions?: ValidationOptions) {
   };
 }
 
+/**
+ * VatID validate decorator, should pass invoice field type of current object
+ * @param {string} invoiceTypeField - The name of the invoice type field.
+ */
+
 export function VatID(property: string, validationOptions?: ValidationOptions) {
   return (object: any, propertyName: string) => {
     registerDecorator({
