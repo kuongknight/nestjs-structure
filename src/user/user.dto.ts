@@ -1,10 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
+import { VatID } from '../core/utils/validations';
+
+enum IMVOICE_TYPE {
+  T,
+  F,
+}
 
 export class CreateUserDto {
-  @ApiProperty()
+  @ApiProperty({ required: false })
+  @IsOptional()
   @IsNotEmpty()
-  name: string;
+  name?: string;
 
   @ApiProperty()
   @IsEmail()
@@ -13,6 +20,19 @@ export class CreateUserDto {
   @ApiProperty()
   @IsNotEmpty()
   password: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsEnum(IMVOICE_TYPE)
+  invoiceType: string;
+
+  @ApiProperty({
+    description:
+      'VAT ID followed invoceType, invoiceType: T => 1234 (Length 4)',
+  })
+  @IsNotEmpty()
+  @VatID('invoiceType')
+  vatID: string;
 }
 
 export class FilterUserDto {

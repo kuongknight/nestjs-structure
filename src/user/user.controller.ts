@@ -6,20 +6,21 @@ import { CreateUserDto, FilterUserDto } from './user.dto';
 
 @Injectable()
 @ApiTags('User')
-@Controller('users')
+@Controller()
 export class UserController {
   constructor(private userService: UserService) {}
 
   @ApiResponse({ type: [User] })
-  @Get()
+  @Get('/users')
   findAll(@Query() query: FilterUserDto): Promise<User[]> {
     console.log(query);
     return this.userService.findAll();
   }
 
   @ApiResponse({ type: User })
-  @Post()
+  @Post('/users')
   register(@Body() userInput: CreateUserDto): User {
+    console.log(userInput);
     return this.userService.create(userInput);
   }
 }

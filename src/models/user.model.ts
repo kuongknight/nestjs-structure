@@ -13,6 +13,12 @@ export class User {
   @ApiProperty()
   name?: string;
 
+  @ApiProperty()
+  invoiceType?: string;
+
+  @ApiProperty()
+  vatID?: string;
+
   passwordHash: string;
   salt: string;
 }

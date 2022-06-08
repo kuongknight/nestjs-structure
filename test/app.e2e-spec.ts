@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppFactory } from '../src/app';
 
@@ -13,6 +13,7 @@ describe('AppController Full modules', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.useGlobalPipes(new ValidationPipe());
     await app.init();
   });
 
@@ -23,6 +24,32 @@ describe('AppController Full modules', () => {
     return request(app.getHttpServer())
       .post('/auth/local/login')
       .send({ email: 'test@test.com', password: 'test' })
+      .expect(201);
+  });
+
+  it('/users (POST) wrong vatID', () => {
+    return request(app.getHttpServer())
+      .post('/users')
+      .send({
+        email: 'test@test.com',
+        password: 'test',
+        name: 'test',
+        invoiceType: 'T',
+        vatID: '12345',
+      })
+      .expect(400);
+  });
+
+  it('/users (POST) good vatID', () => {
+    return request(app.getHttpServer())
+      .post('/users')
+      .send({
+        email: 'test@test.com',
+        password: 'test',
+        name: 'test',
+        invoiceType: 'T',
+        vatID: '1234',
+      })
       .expect(201);
   });
 });
@@ -37,6 +64,7 @@ describe('AppController Auth Only', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.useGlobalPipes(new ValidationPipe());
     await app.init();
   });
 
