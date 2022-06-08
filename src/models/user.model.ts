@@ -10,7 +10,7 @@ export class User {
   @ApiProperty()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ required: false })
   name?: string;
 
   @ApiProperty()
